@@ -40,7 +40,7 @@ double RsCamera::findDepthObj(cv::Rect box) {
         // cv::circle( drawing, cv::Point(x,y), 3, cv::Scalar(255, 0, 0), 2, 8, 0 );
 
         double d = depMat.at<float>(y, x);
-        if (d > (0.5 - 1e-6)  && d < (1.5 + 1e-6)) {
+        if (d > (DEPTH_MIN - 1e-6)  && d < (DEPTH_MAX + 1e-6)) {
             ret += d;
             ct++;
         }
@@ -123,7 +123,7 @@ void RsCamera::convertToXYZ(cv::Mat & depthMat, rs::intrinsics & camInfo, cv::Ma
 			float d = depthMat.at<float>(i, j);
 			
             // std::cerr << "sample " << d << std::endl;
-			if (d < 0.5 || d > 1.5) {
+			if (d < DEPTH_MIN || d > DEPTH_MAX) {
 				// xyzMat.at<cv::Point3f>(i, j) = cv::Point3f(qnan, qnan, qnan);
                 binMat.at<uchar>(i, j) = 0;
                 // depthMat.at<float>(i ,j) = 0.f;
@@ -153,7 +153,7 @@ void RsCamera::getFrame() {
 				 (uchar *)_rs_camera->get_frame_data( rs::stream::color ) );
     cv::cvtColor( rgb, rgbMat, cv::COLOR_BGR2RGB );
     
-    cv::inRange(depMat, cv::Scalar(0.5), cv::Scalar(1.5), binMat);
+    cv::inRange(depMat, cv::Scalar(DEPTH_MIN), cv::Scalar(DEPTH_MAX), binMat);
     int erosion_size = 5;  
     cv::Mat elementE = getStructuringElement(cv::MORPH_ELLIPSE,
               cv::Size(2 * erosion_size + 1, 2 * erosion_size + 1),

@@ -8,12 +8,14 @@
 #include <opencv2/viz.hpp>
 #include <algorithm>
 
-// #define DEBUG_CAM
+#define DEBUG_CAM
 
 int const RS_INPUT_WIDTH 	= 640;
 int const RS_INPUT_HEIGHT 	= 480;
 int const RS_FRAMERATE 	= 60;
 double const RS_SCALE = 1000.f; // convert mm -> m
+double const DEPTH_MIN = 0.5f;
+double const DEPTH_MAX = 1.5f;
 
 class RsCamera {
     public:
