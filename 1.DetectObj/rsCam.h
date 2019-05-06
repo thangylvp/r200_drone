@@ -10,8 +10,8 @@
 
 #define DEBUG_CAM
 
-int const RS_INPUT_WIDTH 	= 640;
-int const RS_INPUT_HEIGHT 	= 480;
+int const RS_INPUT_WIDTH 	= 320;
+int const RS_INPUT_HEIGHT 	= 240;
 int const RS_FRAMERATE 	= 60;
 double const RS_SCALE = 1000.f; // convert mm -> m
 double const DEPTH_MIN = 0.5f;
