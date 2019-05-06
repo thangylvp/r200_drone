@@ -87,12 +87,12 @@ void RsCamera::process() {
         if( _rs_camera->is_streaming( ) )
 			_rs_camera->wait_for_frames( );
 
-        // double st = cv::getTickCount();
+        double st = cv::getTickCount();
         getFrame();
         findBoxObj();
-        //double ed = cv::getTickCount();
+        double ed = cv::getTickCount();
 
-        //std::cerr << 1.0 / ((ed - st) / cv::getTickFrequency()) << std::endl;
+        std::cerr << 1.0 / ((ed - st) / cv::getTickFrequency()) << std::endl;
 
     #ifdef DEBUG_CAM
            cv::imshow("rgb", rgbMat);
